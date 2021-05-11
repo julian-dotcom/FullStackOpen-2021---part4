@@ -2,12 +2,27 @@ GET http://localhost:3001/api/blogs
 
 ###
 
+GET http://localhost:3001/api/blogs/609aa0cb2ecc574a483b48b3
+
+###
+
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Th",
-    "author": "GH",
-    "url": "Striasdfg",
-    "likes": "111"
+    "title": "AAAAAAAA",
+    "author": "AAAAAAAAA",
+    "url": "AAAAAAAAAAA",
+    "likes": "33333333333333"
+} 
+
+###
+DELETE http://localhost:3001/api/blogs/609aa874b1ae4a5d701f04ed
+
+###
+PUT http://localhost:3001/api/blogs/609a878a9674135d24e4c2ec
+Content-Type: application/json
+
+{
+    "likes": "888"
 } 
