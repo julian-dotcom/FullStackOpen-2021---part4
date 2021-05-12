@@ -100,6 +100,7 @@ test('testing what happens when title or url parameter aren\'t given', async () 
         .post('/api/blogs')
         .send(newBlog)
         .expect(400)
+        
 })
 
 // ---- 4.13
