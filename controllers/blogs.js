@@ -5,7 +5,7 @@ const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
     //console.log('got to route handler')
-    const blogs = await Blog.find({})
+    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 }) //this ensures that we also have some information on the creator
     response.json(blogs)
 })
 
@@ -16,7 +16,8 @@ blogsRouter.post('/', async (request, response, next) => {
         response.status(400).end()        
     }
 
-    const user = await User.findById(body.userId)
+    let user = await (User.find({}).populate('blogs'))
+    user = user[0]
 
     const blog = new Blog ({
         title: body.title,
@@ -24,11 +25,12 @@ blogsRouter.post('/', async (request, response, next) => {
         url: body.url,
         likes: body.likes,
         user: user._id
-
     })
     try {
         const savedBlog = await blog.save()
+        console.log('saved blog: ', savedBlog)
         user.blogs = user.blogs.concat(savedBlog._id)
+        console.log('new user: ', user)
         await user.save()
         response.json(savedBlog.toJSON())    
     } catch (exception) {
