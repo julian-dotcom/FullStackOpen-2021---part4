@@ -8,11 +8,12 @@ GET http://localhost:3001/api/blogs/609aa0cb2ecc574a483b48b3
 
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikp1bGlhbiIsImlkIjoiNjA5ZDM4YjkyYTliNmY1MjYwOWUxZTcwIiwiaWF0IjoxNjIwOTIwMzM2fQ.0Bx-C_FvTnH2KqjIazME67HffAjUTjHZRKx0VmoFrNg
 
 {
-    "title": "Still gooood",
-    "author": "Hopefully still good",
-    "url": "http",
+    "title": "Token",
+    "author": "Hopefully works",
+    "url": "https",
     "likes": "34256346"
 } 
 
