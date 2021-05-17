@@ -1,12 +1,12 @@
-GET http://localhost:3001/api/blogs
+GET http://localhost:3003/api/blogs
 
 ###
 
-GET http://localhost:3001/api/blogs/609aa0cb2ecc574a483b48b3
+GET http://localhost:3003/api/blogs/609aa0cb2ecc574a483b48b3
 
 ###
 
-POST http://localhost:3001/api/blogs
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikp1bGlhbiIsImlkIjoiNjA5ZDM4YjkyYTliNmY1MjYwOWUxZTcwIiwiaWF0IjoxNjIwOTIwMzM2fQ.0Bx-C_FvTnH2KqjIazME67HffAjUTjHZRKx0VmoFrNg
 
@@ -18,13 +18,22 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikp1b
 } 
 
 ###
-DELETE http://localhost:3001/api/blogs/609aa874b1ae4a5d701f04ed
+DELETE http://localhost:3003/api/blogs/60a276d85efc8f04984d7fdb
 
 ###
-PUT http://localhost:3001/api/blogs/609a878a9674135d24e4c2ec
+PUT http://localhost:3003/api/blogs/609fc8694eb12e363c0caa6f
 Content-Type: application/json
 
 {
     "likes": "888"
 } 
 
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "Julian",
+    "name": "Julian",
+    "password": "Julian"
+} 

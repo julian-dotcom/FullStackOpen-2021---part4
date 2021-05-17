@@ -19,7 +19,6 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
-
     // verify token is appropriate
     const token = getTokenFrom(request)
     const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -31,7 +30,6 @@ blogsRouter.post('/', async (request, response, next) => {
     if (!body.title || !body.url) {
         response.status(400).end()        
     }
-
     let user = await (User.findById(decodedToken.id))
     //user = user[0]
 
@@ -46,7 +44,6 @@ blogsRouter.post('/', async (request, response, next) => {
         const savedBlog = await blog.save()
         console.log('saved blog: ', savedBlog)
         user.blogs = user.blogs.concat(savedBlog._id)
-        console.log('new user: ', user)
         await user.save()
         response.json(savedBlog.toJSON())    
     } catch (exception) {
@@ -69,13 +66,33 @@ blogsRouter.get('/:id', async (request, response, next) => {
 
 blogsRouter.delete('/:id', async (request, response, next) => {
     try {
+        console.log('entered try bracket')
         const blog = await Blog.findById(request.params.id) // make sure id exists first
         if (!blog) { response.status(404).end() }
-        await Blog.findByIdAndRemove(request.params.id)
+        const blogCreatorId = String(blog.user)
+        //get current user id
+        const token = getTokenFrom(request)
+        const decodedToken = jwt.verify(token, process.env.SECRET)
+        if (!token || !decodedToken.id) {
+          return response.status(401).json({ error: 'token missing or invalid' })
+        }
+        const currentUserId = decodedToken.id
+        // verify that only the creator can delete it
+        console.log('creator: ', typeof blogCreatorId)
+        console.log('current: ', typeof currentUserId)
+        console.log(currentUserId === blogCreatorId)
+        if (blogCreatorId !== currentUserId) {
+          console.log('not equal')
+          response.status(401).end()
+        }
+        else if (blogCreatorId === currentUserId) {
+          await Blog.findByIdAndRemove(request.params.id)
         response.status(204).end()
-      } catch (exception) {
-        next(exception)
       }
+    } catch (exception) {
+      console.error('error message: ', exception)
+      next(exception)
+    }
 })
 
 blogsRouter.put('/:id', async (request, response, next) => {
